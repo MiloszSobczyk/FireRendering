@@ -34,7 +34,13 @@ add_executable(${PROJECT_NAME}
     "Source/Utils/ColorPalette.cpp"
     "Source/Utils/Init.cpp"
     "Source/Utils/Logger.cpp"
- "Source/Scenes/IScene.h" "Source/Scenes/FireScene.h" "Source/Scenes/FireScene.cpp")
+    "Source/Scenes/IScene.h" 
+    "Source/Scenes/FireScene.h" 
+    "Source/Scenes/FireScene.cpp"
+
+    "Source/Particles/Particle.h"
+    "Source/Particles/ParticleSystem.cpp"
+    )
 
 set_property(TARGET ${PROJECT_NAME} PROPERTY CXX_STANDARD 20)
 
