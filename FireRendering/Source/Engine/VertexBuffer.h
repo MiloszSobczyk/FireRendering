@@ -20,7 +20,6 @@ public:
 	void Unbind() const;
 
 	template<class T> void SetVertices(std::vector<T> vertices);
-	template<class T> void SetSubVertices(std::vector<T> vertices);
 private:
 	unsigned int id;
 };
@@ -38,19 +37,5 @@ inline void VertexBuffer::SetVertices(std::vector<T> vertices)
 	count = vertices.size();
 	Bind();
 	GLCall(glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(T), vertices.data(), GL_DYNAMIC_DRAW));
-	Unbind();
-}
-
-template<class T>
-inline void SetSubVertices(std::vector<T> vertices)
-{
-	count = vertices.size();
-	Bind();
-	GLCall(glBufferSubData(
-		GL_ARRAY_BUFFER,
-		0,
-		vertices.size() * sizeof(T),
-		vertices.data()
-	));
 	Unbind();
 }

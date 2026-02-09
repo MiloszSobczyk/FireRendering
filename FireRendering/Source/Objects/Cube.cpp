@@ -15,27 +15,27 @@ Cube::Cube(bool inInverted, bool inEdgesOnly, bool inUsePhong)
 
 void Cube::Render()
 {
-    if (edgesOnly)
-    {
-        glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-    }
+    //if (edgesOnly)
+    //{
+    //    glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+    //}
 
-    auto shader = ShaderManager::GetInstance().GetShader(usePhong ? ShaderName::DefaultPhong : ShaderName::Default);
+    //auto shader = ShaderManager::GetInstance().GetShader(usePhong ? ShaderName::DefaultPhong : ShaderName::Default);
 
-    shader->Bind();
-    shader->SetUniformVec4f("u_color", color);
-    shader->SetUniformMat4f("u_viewMatrix", App::GetViewMatrix());
-    shader->SetUniformMat4f("u_projectionMatrix", App::GetProjectionMatrix());
-    shader->SetUniformMat4f("u_modelMatrix", GetModelMatrix());
+    //shader->Bind();
+    //shader->SetUniformVec4f("u_color", color);
+    //shader->SetUniformMat4f("u_viewMatrix", App::GetViewMatrix());
+    //shader->SetUniformMat4f("u_projectionMatrix", App::GetProjectionMatrix());
+    //shader->SetUniformMat4f("u_modelMatrix", GetModelMatrix());
 
     renderer.Render(GL_TRIANGLES);
 
-    shader->Unbind();
+    //shader->Unbind();
 
-    if (edgesOnly)
-    {
-        glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-    }
+    //if (edgesOnly)
+    //{
+    //    glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+    //}
 }
 
 void Cube::Update()

@@ -1,11 +1,6 @@
 #include "App.h"
 
 #include "Core/Globals.h"
-#include "Engine/Shader.h"
-#include "Engine/Renderer.h"
-
-#include <numbers>
-#include <string>
 
 Camera App::camera = Camera(5.f, 45.f);
 
@@ -59,6 +54,8 @@ void App::Run()
 		ImGui_ImplOpenGL3_NewFrame();
 		ImGui_ImplGlfw_NewFrame();
 		ImGui::NewFrame();
+
+		scene->Update();
 
 		RenderUI();
 

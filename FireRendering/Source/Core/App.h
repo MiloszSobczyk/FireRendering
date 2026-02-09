@@ -3,13 +3,6 @@
 #include "Core/Window.h"
 #include "Engine/Camera.h"
 #include "Managers/ShaderManager.h"
-#include "Objects/Objects.h"
-#include "Utils/Init.h"
-
-#include <array>
-#include <string>
-#include <unordered_set>
-#include <vector>
 
 #include "Scenes/FireScene.h"
 
