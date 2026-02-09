@@ -1,8 +1,9 @@
 #pragma once
 
+#include <memory>
+
 #include "Particle.h"
 #include "Engine/VertexLayout.h"
-#include <memory>
 #include "Objects/Cube.h"
 
 class ParticleSystem

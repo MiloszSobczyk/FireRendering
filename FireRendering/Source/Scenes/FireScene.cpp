@@ -1,4 +1,5 @@
 #include "FireScene.h"
+
 #include <chrono>
 
 FireScene::FireScene()

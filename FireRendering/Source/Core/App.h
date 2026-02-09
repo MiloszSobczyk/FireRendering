@@ -2,8 +2,6 @@
 
 #include "Core/Window.h"
 #include "Engine/Camera.h"
-#include "Managers/ShaderManager.h"
-
 #include "Scenes/FireScene.h"
 
 class App 

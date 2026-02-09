@@ -1,5 +1,5 @@
 #include "ParticleSystem.h"
-#include <Managers/ShaderManager.h>
+#include "Managers/ShaderManager.h"
 #include "Core/App.h"
 
 ParticleSystem::ParticleSystem(std::size_t inMaxParticles)
@@ -66,7 +66,8 @@ void ParticleSystem::Update(float dt)
     }
 }
 
-
+// TODO: Sehr wichtig! Right now every particle is drawn as a separate draw call, which is very inefficient. 
+// We should batch them together in a single draw call using instancing or a dynamic vertex buffer.
 void ParticleSystem::Render() const
 {
     auto shader = ShaderManager::GetInstance().GetShader(ShaderName::Default);
