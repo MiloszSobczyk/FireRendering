@@ -19,33 +19,53 @@ void ParticleSystem::Emit(const glm::vec3& position)
     {
         if (p.life <= 0.0f)
         {
+            float life =
+                minLife +
+                static_cast<float>(rand()) /
+                static_cast<float>(RAND_MAX) *
+                (maxLife - minLife);
+
             p.position = position;
-            p.velocity = glm::vec3(
-                (rand() % 100 - 50) / 50.0f,
-                (rand() % 100) / 50.0f,
-                0.0f
+
+            auto velocity = glm::vec3(
+                (rand() % 100 - 50) / 100.0f,
+                (rand() % 100) / 40.0f,
+                (rand() % 100 - 50) / 100.0f
             );
-            p.life = 1.0f;
+            p.velocity = glm::normalize(velocity);
+
+            p.life = life;
             p.color = glm::vec4(1.0f, 0.5f, 0.2f, 1.0f);
+
             break;
         }
     }
 }
 
+
 void ParticleSystem::Update(float dt)
 {
-	std::cout << "Updating particles with dt: " << dt << std::endl;
+    std::cout << "Updating particles with dt: " << dt << std::endl;
+
+    emitAccumulator += dt * emitRate;
+
+    while (emitAccumulator >= 1.0f)
+    {
+        Emit(glm::vec3(0.0f));
+        emitAccumulator -= 1.0f;
+    }
+
     for (auto& p : particles)
     {
         if (p.life > 0.0f)
         {
             p.life -= dt;
             p.position += p.velocity * dt;
-            p.color.a = p.life;
+            p.color.a = p.life / maxLife;
         }
     }
-    Emit(glm::vec3(0.f));
 }
+
 
 void ParticleSystem::Render() const
 {
@@ -67,8 +87,9 @@ void ParticleSystem::Render() const
 
         model = glm::scale(
             model,
-            glm::vec3(0.05f)
+            glm::vec3(0.05f * p.life / maxLife)
         );
+
         shader->SetUniformMat4f("u_modelMatrix", model);
 
 		cubeMesh->Render();

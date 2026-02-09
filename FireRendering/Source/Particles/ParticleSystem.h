@@ -21,4 +21,10 @@ private:
     std::shared_ptr<Cube> cubeMesh;
 
     std::size_t maxParticles;
+
+    float emitRate = 100.0f;
+    float emitAccumulator = 0.0f;
+
+    float minLife = 0.8f;
+    float maxLife = 1.6f;
 };
