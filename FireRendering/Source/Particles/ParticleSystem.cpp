@@ -3,7 +3,7 @@
 #include "Core/App.h"
 
 ParticleSystem::ParticleSystem(std::size_t inMaxParticles)
-	: maxParticles(inMaxParticles), cubeMesh(std::make_shared<Cube>())
+	: maxParticles(inMaxParticles), quadMesh(std::make_shared<Quad>())
 {
     particles.resize(maxParticles);
 
@@ -93,7 +93,7 @@ void ParticleSystem::Render() const
 
         shader->SetUniformMat4f("u_modelMatrix", model);
 
-		cubeMesh->Render();
+		quadMesh->Render();
     }
 
     shader->Unbind();

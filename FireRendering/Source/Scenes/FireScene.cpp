@@ -1,5 +1,7 @@
 #include "FireScene.h"
 
+#include "Particles/ParticleSystem.h"
+
 #include <chrono>
 
 FireScene::FireScene()

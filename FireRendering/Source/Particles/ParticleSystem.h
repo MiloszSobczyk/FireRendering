@@ -4,7 +4,7 @@
 
 #include "Particle.h"
 #include "Engine/VertexLayout.h"
-#include "Objects/Cube.h"
+#include "Objects/Quad.h"
 
 class ParticleSystem
 {
@@ -19,7 +19,7 @@ public:
 
 private:
     std::vector<Particle> particles;
-    std::shared_ptr<Cube> cubeMesh;
+    std::shared_ptr<Quad> quadMesh;
 
     std::size_t maxParticles;
 

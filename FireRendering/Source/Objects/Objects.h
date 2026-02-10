@@ -9,3 +9,4 @@
 #include "Trace.h"
 #include "Arrow.h"
 #include "BezierCube.h"
+#include "Quad.h"
