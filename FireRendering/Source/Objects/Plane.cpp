@@ -1,5 +1,6 @@
 #include "Plane.h"
 
+#include "Managers/ShaderManager.h"
 #include "Core/App.h"
 
 Plane::Plane()

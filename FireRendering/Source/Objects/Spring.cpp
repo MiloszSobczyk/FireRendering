@@ -1,5 +1,6 @@
 #include "Spring.h"
 #include "Core/App.h"
+#include "Managers/ShaderManager.h"
 
 #include <numbers>
 #include <glm/gtc/matrix_transform.hpp>
