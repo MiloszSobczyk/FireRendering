@@ -11,6 +11,7 @@ enum class ShaderName
 	DefaultColor = 1,
 	DefaultPhong = 2,
 	BezierPatch = 3,
+	Billboard = 4,
 };
 
 class ShaderManager

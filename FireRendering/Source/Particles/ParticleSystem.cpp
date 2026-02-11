@@ -70,12 +70,13 @@ void ParticleSystem::Update(float dt)
 // We should batch them together in a single draw call using instancing or a dynamic vertex buffer.
 void ParticleSystem::Render() const
 {
-    auto shader = ShaderManager::GetInstance().GetShader(ShaderName::Default);
+    auto shader = ShaderManager::GetInstance().GetShader(ShaderName::Billboard);
 
     shader->Bind();
     shader->SetUniformMat4f("u_projectionMatrix", App::GetProjectionMatrix());
     shader->SetUniformMat4f("u_viewMatrix", App::GetViewMatrix());
     shader->SetUniformVec4f("u_color", glm::vec4(1.f));
+    shader->SetUniformVec3f("u_cameraWorldPos", App::GetCameraWorldPosition());
     
     for (const auto& p : particles)
     {

@@ -40,6 +40,15 @@ ShaderManager::ShaderManager()
 		.AddShader(ShaderType::Fragment, "bezierPatch")
 		.Compile()
 	);
+
+	AddShader(
+		ShaderName::Billboard,
+		ShaderBuilder()
+		.SetShaderDirectory("Resources/Shaders/")
+		.AddShader(ShaderType::Vertex, "billboard")
+		.AddShader(ShaderType::Fragment, "billboard")
+		.Compile()
+	);
 }
 
 ShaderManager& ShaderManager::GetInstance()
