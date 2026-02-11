@@ -82,13 +82,12 @@ void FlameParticleSystem::Render()
     shader->SetUniformVec4f("u_color", glm::vec4(1.f, 0.5f, 0.2f, 1.f));
     shader->SetUniformFloat("u_dissolveStrength", 0.5f);
     shader->SetUniformFloat("u_tiling", 4.0f);
-    shader->SetUniformFloat("u_edgeWidth", 0.1f);
 
     particleTexture->Bind(0);
     shader->SetUniformInt("u_texture", 0);
 
     dissolveTexture->Bind(1);
-    shader->SetUniformInt("u_dissolveTex", 1);
+    shader->SetUniformInt("u_dissolveTexture", 1);
 
     for (const auto& p : particles)
     {

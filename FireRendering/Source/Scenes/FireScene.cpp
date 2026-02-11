@@ -25,7 +25,7 @@ void FireScene::Update()
 
 void FireScene::RenderOnScene()
 {
-	//plane->Render();
+	plane->Render();
     flameParticleSystem->Render();
 }
 
