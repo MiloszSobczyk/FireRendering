@@ -4,7 +4,7 @@
 
 #include "IScene.h"
 #include "Objects/Plane.h"
-#include "Particles/ParticleSystem.h"
+#include "Particles/FlameParticleSystem.h"
 
 
 class FireScene : public IScene
@@ -19,5 +19,5 @@ public:
 
 private:
 	std::shared_ptr<Plane> plane;
-	std::shared_ptr<ParticleSystem> particleSystem;
+	std::shared_ptr<FlameParticleSystem> flameParticleSystem;
 };

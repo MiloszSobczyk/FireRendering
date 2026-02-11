@@ -1,11 +1,9 @@
 #include "FireScene.h"
 
-#include "Particles/ParticleSystem.h"
-
 #include <chrono>
 
 FireScene::FireScene()
-	: plane(std::make_shared<Plane>()), particleSystem(std::make_shared<ParticleSystem>(20))
+	: plane(std::make_shared<Plane>()), flameParticleSystem(std::make_shared<FlameParticleSystem>(20))
 {
 }
 
@@ -21,14 +19,14 @@ void FireScene::Update()
 
     float deltaTime = delta.count();
 
-    particleSystem->Update(deltaTime);
+    flameParticleSystem->Update(deltaTime);
 }
 
 
 void FireScene::RenderOnScene()
 {
 	//plane->Render();
-	particleSystem->Render();
+    flameParticleSystem->Render();
 }
 
 void FireScene::RenderUI()
