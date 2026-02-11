@@ -75,7 +75,7 @@ void ParticleSystem::Render() const
     shader->Bind();
     shader->SetUniformMat4f("u_projectionMatrix", App::GetProjectionMatrix());
     shader->SetUniformMat4f("u_viewMatrix", App::GetViewMatrix());
-    shader->SetUniformVec4f("u_color", glm::vec4(1.f));
+    shader->SetUniformVec4f("u_color", glm::vec4(1.f, 0.f, 0.f, 1.f));
     shader->SetUniformVec3f("u_cameraWorldPos", App::GetCameraWorldPosition());
 
     particleTexture->Bind(0);
