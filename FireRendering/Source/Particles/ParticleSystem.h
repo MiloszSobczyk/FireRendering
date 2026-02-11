@@ -22,6 +22,7 @@ private:
     std::vector<Particle> particles;
     std::shared_ptr<Quad> quadMesh;
 	std::shared_ptr<Texture> particleTexture;
+	std::shared_ptr<Texture> dissolveTexture;
 
     std::size_t maxParticles;
 

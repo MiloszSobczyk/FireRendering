@@ -27,4 +27,5 @@ public:
 	inline static glm::mat4x4 GetProjectionMatrix() { return camera.GetProjectionMatrix(); }
 	inline static glm::mat4x4 GetViewMatrix() { return camera.GetViewMatrix(); }
 	inline static glm::vec3 GetCameraWorldPosition() { return camera.GetWorldPosition(); }
+	inline static float GetTime() { return static_cast<float>(glfwGetTime()); }
 };

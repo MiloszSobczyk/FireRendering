@@ -3,7 +3,7 @@
 layout(location = 0) in vec4 position;
 layout(location = 1) in vec2 aTexCoord;
 
-out vec2 TexCoord;
+out vec2 v_UV;
 
 uniform mat4 u_projectionMatrix;
 uniform mat4 u_viewMatrix;
@@ -12,7 +12,7 @@ uniform vec3 u_cameraWorldPos;
 
 void main()
 {
-    TexCoord = aTexCoord;
+    v_UV = aTexCoord;
 
     vec3 center = vec3(u_modelMatrix[3]);
     vec3 forward = normalize(u_cameraWorldPos - center);

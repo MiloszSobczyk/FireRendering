@@ -5,7 +5,7 @@
 #include <chrono>
 
 FireScene::FireScene()
-	: plane(std::make_shared<Plane>()), particleSystem(std::make_shared<ParticleSystem>(50))
+	: plane(std::make_shared<Plane>()), particleSystem(std::make_shared<ParticleSystem>(20))
 {
 }
 
@@ -27,7 +27,7 @@ void FireScene::Update()
 
 void FireScene::RenderOnScene()
 {
-	plane->Render();
+	//plane->Render();
 	particleSystem->Render();
 }
 
