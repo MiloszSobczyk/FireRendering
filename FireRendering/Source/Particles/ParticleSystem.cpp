@@ -3,7 +3,7 @@
 #include "Core/App.h"
 
 ParticleSystem::ParticleSystem(std::size_t inMaxParticles)
-	: maxParticles(inMaxParticles), quadMesh(std::make_shared<Quad>())
+	: maxParticles(inMaxParticles), quadMesh(std::make_shared<Quad>()), particleTexture(std::make_shared<Texture>())
 {
     particles.resize(maxParticles);
 
@@ -11,6 +11,8 @@ ParticleSystem::ParticleSystem(std::size_t inMaxParticles)
     {
         p.life = 0.0f;
     }
+
+	particleTexture->LoadFromFile("Resources/Textures/Fire01.png");
 }
 
 void ParticleSystem::Emit(const glm::vec3& position)
@@ -66,8 +68,6 @@ void ParticleSystem::Update(float dt)
     }
 }
 
-// TODO: Sehr wichtig! Right now every particle is drawn as a separate draw call, which is very inefficient. 
-// We should batch them together in a single draw call using instancing or a dynamic vertex buffer.
 void ParticleSystem::Render() const
 {
     auto shader = ShaderManager::GetInstance().GetShader(ShaderName::Billboard);
@@ -77,6 +77,9 @@ void ParticleSystem::Render() const
     shader->SetUniformMat4f("u_viewMatrix", App::GetViewMatrix());
     shader->SetUniformVec4f("u_color", glm::vec4(1.f));
     shader->SetUniformVec3f("u_cameraWorldPos", App::GetCameraWorldPosition());
+
+    particleTexture->Bind(0);
+    shader->SetUniformInt("u_texture", 0);
     
     for (const auto& p : particles)
     {
@@ -89,7 +92,7 @@ void ParticleSystem::Render() const
 
         model = glm::scale(
             model,
-            glm::vec3(0.05f * p.life / maxLife)
+            glm::vec3(0.2f * p.life / maxLife)
         );
 
         shader->SetUniformMat4f("u_modelMatrix", model);

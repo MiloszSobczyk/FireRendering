@@ -78,12 +78,11 @@ void Window::HandleResize(int width, int height)
 
 void Window::SetupGLFWFunctions()
 {
-    GLCall(glEnable(GL_CULL_FACE));
-    GLCall(glCullFace(GL_BACK));
-    GLCall(glFrontFace(GL_CCW));
+    GLCall(glDisable(GL_CULL_FACE));
 
     GLCall(glEnable(GL_BLEND));
     GLCall(glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA));
+
     GLCall(glPatchParameteri(GL_PATCH_VERTICES, 4));
 
     GLCall(glEnable(GL_DEPTH_TEST));

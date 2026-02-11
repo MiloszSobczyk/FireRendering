@@ -5,6 +5,7 @@
 #include "Particle.h"
 #include "Engine/VertexLayout.h"
 #include "Objects/Quad.h"
+#include "Texture/Texture.h"
 
 class ParticleSystem
 {
@@ -20,6 +21,7 @@ public:
 private:
     std::vector<Particle> particles;
     std::shared_ptr<Quad> quadMesh;
+	std::shared_ptr<Texture> particleTexture;
 
     std::size_t maxParticles;
 

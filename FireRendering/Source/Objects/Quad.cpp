@@ -7,7 +7,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 
 Quad::Quad()
-	: Shape(ColorPalette::Get(Color::Red)), renderer(VertexDataType::PositionVertexData),
+	: Shape(ColorPalette::Get(Color::Red)), renderer(VertexDataType::PositionUVData),
 	translationComponent(std::make_shared<TranslationComponent>()), 
 	scalingComponent(std::make_shared<ScalingComponent>()), 
 	rotationComponent(std::make_shared<RotationComponent>())
@@ -32,11 +32,11 @@ void Quad::Render()
 
 void Quad::Update()
 {
-	std::vector<PositionVertexData> vertices = {
-		{{ -0.5f, -0.5f, 0.f, 1.f }},
-		{{  0.5f, -0.5f, 0.f, 1.f }},
-		{{  0.5f,  0.5f, 0.f, 1.f }},
-		{{ -0.5f,  0.5f, 0.f, 1.f }}
+	std::vector<PositionUVData> vertices = {
+		{{ -0.5f, -0.5f, 0.f, 1.f }, { 0.f, 0.f }},
+		{{  0.5f, -0.5f, 0.f, 1.f }, { 1.f, 0.f }},
+		{{  0.5f,  0.5f, 0.f, 1.f }, { 1.f, 1.f }},
+		{{ -0.5f,  0.5f, 0.f, 1.f }, { 0.f, 1.f }},
 	};
 
 	std::vector<unsigned int> indices = {

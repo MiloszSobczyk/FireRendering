@@ -9,7 +9,7 @@ private:
 	std::shared_ptr<TranslationComponent> translationComponent;
 	std::shared_ptr<ScalingComponent> scalingComponent;
 	std::shared_ptr<RotationComponent> rotationComponent;
-	Renderer<PositionVertexData> renderer;
+	Renderer<PositionUVData> renderer;
 
 public:
 	Quad();

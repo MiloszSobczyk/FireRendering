@@ -26,6 +26,14 @@ void VertexArray::EnableLayout()
 			(void*)offsetof(PositionNormalVertexData, Normal)));
 		GLCall(glEnableVertexAttribArray(1));
 		break;
+	case VertexDataType::PositionUVData:
+		GLCall(glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, sizeof(PositionUVData),
+			(void*)offsetof(PositionUVData, Position)));
+		GLCall(glEnableVertexAttribArray(0));
+		GLCall(glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(PositionUVData),
+			(void*)offsetof(PositionUVData, UV));
+		GLCall(glEnableVertexAttribArray(1)));
+		break;
 	default:
 		throw std::runtime_error("Invalid Vertex Data type");
 		break;

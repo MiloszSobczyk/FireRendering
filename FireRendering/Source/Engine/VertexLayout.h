@@ -8,6 +8,7 @@ enum class VertexDataType
 	PositionVertexData,
 	PositionColorVertexData,
 	PositionNormalVertexData,
+	PositionUVData,
 };
 
 struct PositionVertexData
@@ -25,4 +26,10 @@ struct PositionColorVertexData
 {
 	glm::vec4 Position;
 	glm::vec4 Color;
+};
+
+struct PositionUVData
+{
+	glm::vec4 Position;
+	glm::vec2 UV;
 };
