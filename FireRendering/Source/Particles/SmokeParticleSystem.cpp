@@ -32,7 +32,21 @@ void SmokeParticleSystem::Emit(const glm::vec3& position)
         {
             float life = minLife + static_cast<float>(rand()) / static_cast<float>(RAND_MAX) * (maxLife - minLife);
 
-            p.position = position;
+            float u = static_cast<float>(rand()) / static_cast<float>(RAND_MAX);
+            float v = static_cast<float>(rand()) / static_cast<float>(RAND_MAX);
+            float w = static_cast<float>(rand()) / static_cast<float>(RAND_MAX);
+
+            float theta = 2.0f * glm::pi<float>() * u;
+            float phi = acos(2.0f * v - 1.0f);
+
+            float r = spawnRadius * cbrt(w);
+
+            glm::vec3 offset;
+            offset.x = r * sin(phi) * cos(theta);
+            offset.y = r * sin(phi) * sin(theta);
+            offset.z = r * cos(phi);
+
+            p.position = position + offset;
 
             glm::vec3 velocity = glm::vec3(
                 (rand() % 100 - 50) / 100.0f,
@@ -55,7 +69,7 @@ void SmokeParticleSystem::Update(float deltaTime)
 
     while (emitAccumulator >= 1.0f)
     {
-        Emit(glm::vec3(0.0f));
+        Emit(glm::vec3(0.f, spawnRadius, 0.f));
         emitAccumulator -= 1.0f;
     }
 
