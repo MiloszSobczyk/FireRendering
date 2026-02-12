@@ -15,9 +15,9 @@ SmokeParticleSystem::SmokeParticleSystem(std::size_t inMaxParticles)
     noise2Texture = std::make_shared<Texture>();
 	noiseDetailTexture = std::make_shared<Texture>();
 
-    noise1Texture->LoadFromFile("Resources/Textures/Noise03.png");
-    noise2Texture->LoadFromFile("Resources/Textures/Noise05.png");
-    noiseDetailTexture->LoadFromFile("Resources/Textures/Noise05.png");
+    noise1Texture->LoadFromFile("Resources/Textures/Noise04.png");
+    noise2Texture->LoadFromFile("Resources/Textures/Noise07.png");
+    noiseDetailTexture->LoadFromFile("Resources/Textures/Noise07.png");
 
     for (auto& p : particles)
     {
