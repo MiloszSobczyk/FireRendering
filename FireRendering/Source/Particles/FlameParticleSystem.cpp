@@ -109,6 +109,10 @@ void FlameParticleSystem::Render()
     shader->SetUniformVec3f("u_cameraWorldPos", App::GetCameraWorldPosition());
     shader->SetUniformFloat("u_time", App::GetTime());
 
+    shader->SetUniformVec3f("u_colorStart", colorStart);
+    shader->SetUniformVec3f("u_colorMid", colorMid);
+    shader->SetUniformVec3f("u_colorEnd", colorEnd);
+
     dissolveTexture->Bind(0);
     shader->SetUniformInt("u_dissolveTexture", 0);
 
@@ -143,4 +147,14 @@ void FlameParticleSystem::Render()
     }
 
     shader->Unbind();
+}
+
+void FlameParticleSystem::RenderUI()
+{
+    if (ImGui::CollapsingHeader("Flame Settings##Flame"))
+    {
+        ImGui::ColorEdit3("Start Color##Flame", &colorStart.x);
+        ImGui::ColorEdit3("Mid Color##Flame", &colorMid.x);
+        ImGui::ColorEdit3("End Color##Flame", &colorEnd.x);
+    }
 }

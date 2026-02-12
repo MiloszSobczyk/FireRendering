@@ -13,6 +13,7 @@ public:
     void Emit(const glm::vec3& position) override;
     void Update(float deltaTime) override;
     void Render() override;
+    void RenderUI();
 
     bool addFlameRandomness = false;
     float coneRadius = 0.1f;
@@ -24,4 +25,8 @@ private:
     std::shared_ptr<Texture> dissolveTexture;
     std::shared_ptr<Texture> dissolveTexture2;
     std::shared_ptr<Texture> dissolveTexture3;
+
+	glm::vec3 colorStart = glm::vec3(1.0f, 0.2f, 0.0f);
+	glm::vec3 colorMid = glm::vec3(1.0f, 1.0f, 0.2f);
+	glm::vec3 colorEnd = glm::vec3(1.0f, 1.0f, 1.0f);
 };

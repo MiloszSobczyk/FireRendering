@@ -102,6 +102,10 @@ void EmberParticleSystem::Render()
     shader->SetUniformMat4f("u_viewMatrix", App::GetViewMatrix());
     shader->SetUniformVec3f("u_cameraWorldPos", App::GetCameraWorldPosition());
 
+    shader->SetUniformVec3f("u_colorStart", colorStart);
+    shader->SetUniformVec3f("u_colorMid", colorMid);
+    shader->SetUniformVec3f("u_colorEnd", colorEnd);
+
     for (const auto& p : particles)
     {
         if (p.life <= 0.0f)
@@ -136,3 +140,12 @@ void EmberParticleSystem::Render()
     shader->Unbind();
 }
 
+void EmberParticleSystem::RenderUI()
+{
+    if (ImGui::CollapsingHeader("Ember Settings##Ember"))
+    {
+        ImGui::ColorEdit3("Start Color##Ember", &colorStart.x);
+        ImGui::ColorEdit3("Mid Color##Ember", &colorMid.x);
+        ImGui::ColorEdit3("End Color##Ember", &colorEnd.x);
+    }
+}

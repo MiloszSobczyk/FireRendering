@@ -56,6 +56,9 @@ void FireScene::RenderUI()
     ImGui::DragFloat("Starting flame disk radius", &flameParticleSystem->diskRadius, 0.01f, 0.f, 0.5f);
     ImGui::DragFloat("Starting flame cone radius", &flameParticleSystem->coneRadius, 0.01f, 0.f, 1.f);
 
+    flameParticleSystem->RenderUI();
+    emberParticleSystem->RenderUI();
+
     ImGui::End();
 
     flameParticleSystem->startingPosition = startingPosition;
