@@ -41,7 +41,8 @@ add_executable(${PROJECT_NAME}
     "Source/Particles/Particle.h"
     "Source/Particles/IParticleSystem.cpp"
     "Source/Particles/FlameParticleSystem.cpp"
-    "Source/Particles/SmokeParticleSystem.cpp")
+    "Source/Particles/SmokeParticleSystem.cpp" 
+    "Source/Particles/EmberParticleSystem.cpp")
 
 set_property(TARGET ${PROJECT_NAME} PROPERTY CXX_STANDARD 20)
 
