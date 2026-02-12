@@ -16,8 +16,9 @@ public:
 
 private:
     std::shared_ptr<Quad> quadMesh;
-    std::shared_ptr<Texture> particleTexture;
-    std::shared_ptr<Texture> dissolveTexture;
+    std::shared_ptr<Texture> noise1Texture;
+    std::shared_ptr<Texture> noise2Texture;
+    std::shared_ptr<Texture> noiseDetailTexture;
 
-    float spawnRadius = 0.5f;
+    float spawnRadius = 0.3f;
 };

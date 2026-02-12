@@ -109,10 +109,6 @@ void FlameParticleSystem::Render()
     shader->SetUniformVec3f("u_cameraWorldPos", App::GetCameraWorldPosition());
     shader->SetUniformFloat("u_time", App::GetTime());
 
-    shader->SetUniformVec4f("u_color", glm::vec4(1.f, 0.5f, 0.2f, 1.f));
-    shader->SetUniformFloat("u_dissolveStrength", 0.5f);
-    shader->SetUniformFloat("u_tiling", 4.0f);
-
     dissolveTexture->Bind(0);
     shader->SetUniformInt("u_dissolveTexture", 0);
 

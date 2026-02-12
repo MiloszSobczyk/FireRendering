@@ -11,11 +11,13 @@ SmokeParticleSystem::SmokeParticleSystem(std::size_t inMaxParticles)
 	: IParticleSystem(inMaxParticles)
 {
     quadMesh = std::make_shared<Quad>();
-    particleTexture = std::make_shared<Texture>();
-    dissolveTexture = std::make_shared<Texture>();
+    noise1Texture = std::make_shared<Texture>();
+    noise2Texture = std::make_shared<Texture>();
+	noiseDetailTexture = std::make_shared<Texture>();
 
-    particleTexture->LoadFromFile("Resources/Textures/Fire01.png");
-    dissolveTexture->LoadFromFile("Resources/Textures/Voronoi01.png");
+    noise1Texture->LoadFromFile("Resources/Textures/Noise03.png");
+    noise2Texture->LoadFromFile("Resources/Textures/Noise05.png");
+    noiseDetailTexture->LoadFromFile("Resources/Textures/Noise05.png");
 
     for (auto& p : particles)
     {
@@ -49,9 +51,9 @@ void SmokeParticleSystem::Emit(const glm::vec3& position)
             p.position = position + offset;
 
             glm::vec3 velocity = glm::vec3(
-                (rand() % 100 - 50) / 100.0f,
-                (rand() % 100) / 40.0f,
-                (rand() % 100 - 50) / 100.0f
+                (rand() % 100 - 50) / 300.0f,
+                (rand() % 100) / 5.0f,
+                (rand() % 100 - 50) / 300.0f
             );
             p.velocity = glm::normalize(velocity);
 
@@ -69,7 +71,7 @@ void SmokeParticleSystem::Update(float deltaTime)
 
     while (emitAccumulator >= 1.0f)
     {
-        Emit(glm::vec3(0.f, spawnRadius, 0.f));
+        Emit(glm::vec3(0.f, 2 * spawnRadius, 0.f));
         emitAccumulator -= 1.0f;
     }
 
@@ -86,7 +88,7 @@ void SmokeParticleSystem::Update(float deltaTime)
 
 void SmokeParticleSystem::Render()
 {
-    auto shader = ShaderManager::GetInstance().GetShader(ShaderName::Billboard);
+    auto shader = ShaderManager::GetInstance().GetShader(ShaderName::Smoke);
     shader->Bind();
 
     shader->SetUniformMat4f("u_projectionMatrix", App::GetProjectionMatrix());
@@ -94,25 +96,43 @@ void SmokeParticleSystem::Render()
     shader->SetUniformVec3f("u_cameraWorldPos", App::GetCameraWorldPosition());
     shader->SetUniformFloat("u_time", App::GetTime());
 
-    shader->SetUniformVec4f("u_color", glm::vec4(1.f, 1.f, 1.f, 1.f));
-    shader->SetUniformFloat("u_dissolveStrength", 0.2f);
-    shader->SetUniformFloat("u_tiling", 4.0f);
+    noise1Texture->Bind(0);
+    shader->SetUniformInt("u_noise1", 0);
 
-    particleTexture->Bind(0);
-    shader->SetUniformInt("u_texture", 0);
+    noise2Texture->Bind(1);
+    shader->SetUniformInt("u_noise2", 1);
 
-    dissolveTexture->Bind(1);
-    shader->SetUniformInt("u_dissolveTexture", 1);
+    noiseDetailTexture->Bind(2);
+    shader->SetUniformInt("u_noiseDetail", 2);
 
     for (const auto& p : particles)
     {
         if (p.life <= 0.0f) continue;
 
+        float normalizedLife = p.life / maxLife;
+        float age = 1.0f - normalizedLife;
+
+        float peakPoint = 0.4f;
+        float alpha = 0.0f;
+
+        if (age < peakPoint)
+        {
+            alpha = age / peakPoint;
+        }
+        else
+        {
+            alpha = 1.0f - ((age - peakPoint) / (1.0f - peakPoint));
+        }
+
+        alpha = glm::clamp(alpha, 0.0f, 1.0f);
+
         glm::mat4 model = glm::mat4(1.0f);
         model = glm::translate(model, p.position);
-        model = glm::scale(model, glm::vec3(0.5f * p.life / maxLife));
+        model = glm::scale(model, glm::vec3(0.5f * normalizedLife));
 
         shader->SetUniformMat4f("u_modelMatrix", model);
+        shader->SetUniformFloat("u_life", p.life);
+        shader->SetUniformVec4f("u_color", glm::vec4(0.2f, 0.2f, 0.2f, alpha));
 
         quadMesh->Render();
     }
