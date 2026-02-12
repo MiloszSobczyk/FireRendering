@@ -31,7 +31,21 @@ void EmberParticleSystem::Emit(const glm::vec3& position)
         {
             float life = minLife + static_cast<float>(rand()) / static_cast<float>(RAND_MAX) * (maxLife - minLife);
 
-            p.position = position;
+            float u = static_cast<float>(rand()) / static_cast<float>(RAND_MAX);
+            float v = static_cast<float>(rand()) / static_cast<float>(RAND_MAX);
+            float w = static_cast<float>(rand()) / static_cast<float>(RAND_MAX);
+
+            float theta = 2.0f * glm::pi<float>() * u;
+            float phi = acos(2.0f * v - 1.0f);
+
+            float r = spawnRadius * cbrt(w);
+
+            glm::vec3 offset;
+            offset.x = r * sin(phi) * cos(theta);
+            offset.y = r * sin(phi) * sin(theta);
+            offset.z = r * cos(phi);
+
+            p.position = position + offset;
 
             glm::vec3 velocity = glm::vec3(
                 (rand() % 100 - 50) / 100.0f,
@@ -48,13 +62,14 @@ void EmberParticleSystem::Emit(const glm::vec3& position)
     }
 }
 
+
 void EmberParticleSystem::Update(float deltaTime)
 {
     emitAccumulator += deltaTime * emitRate;
 
     while (emitAccumulator >= 1.0f)
     {
-        Emit(glm::vec3(0.0f));
+        Emit(glm::vec3(0.f, spawnRadius, 0.f));
         emitAccumulator -= 1.0f;
     }
 
@@ -63,7 +78,19 @@ void EmberParticleSystem::Update(float deltaTime)
         if (p.life > 0.0f)
         {
             p.life -= deltaTime;
+
+            glm::vec3 upwardForce = glm::vec3(0.0f, 1.5f, 0.0f);
+            glm::vec3 wind = glm::vec3(0.8f, 0.0f, 0.3f);
+            glm::vec3 turbulence = glm::vec3(
+                (rand() % 100 - 50) / 500.0f,
+                (rand() % 100 - 50) / 500.0f,
+                (rand() % 100 - 50) / 500.0f
+            );
+            p.velocity += (upwardForce + wind + turbulence) * deltaTime;
+            p.velocity *= 0.98f;
+
             p.position += p.velocity * deltaTime;
+
             p.color.a = p.life / maxLife;
         }
     }
