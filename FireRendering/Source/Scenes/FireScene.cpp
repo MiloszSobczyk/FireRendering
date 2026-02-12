@@ -58,6 +58,8 @@ void FireScene::RenderUI()
 
     ImGui::SliderFloat3("Starting Position", &(startingPosition[0]), -2.f, 2.f);
 
+    ImGui::Checkbox("Add randomness to flame", &flameParticleSystem->addFlameRandomness);
+
     ImGui::SliderFloat("Particle Size", &fireSize, 0.01f, 0.2f);
     ImGui::SliderFloat("Rise Speed", &fireSpeed, 0.1f, 5.0f);
 

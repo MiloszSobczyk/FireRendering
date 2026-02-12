@@ -136,6 +136,8 @@ void FlameParticleSystem::Render()
 
         shader->SetUniformMat4f("u_modelMatrix", model);
         shader->SetUniformFloat("u_life", p.life);
+        if(addFlameRandomness)
+            shader->SetUniformFloat("u_random", randf(-2.f * PI, 2.0f * PI));
 
         quadMesh->Render();
     }

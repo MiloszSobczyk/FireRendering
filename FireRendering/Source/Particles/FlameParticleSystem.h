@@ -14,6 +14,8 @@ public:
     void Update(float deltaTime) override;
     void Render() override;
 
+    bool addFlameRandomness = false;
+
 private:
     std::shared_ptr<Quad> quadMesh;
     std::shared_ptr<Texture> particleTexture;
