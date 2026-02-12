@@ -4,7 +4,7 @@
 #include "Core/App.h"
 
 Plane::Plane()
-	: Shape(ColorPalette::Get(Color::Purple)), renderer(VertexDataType::PositionVertexData),
+	: Shape(ColorPalette::Get(Color::DarkBrown)), renderer(VertexDataType::PositionVertexData),
 	translationComponent(std::make_shared<TranslationComponent>()), 
     scalingComponent(std::make_shared<ScalingComponent>())
 {

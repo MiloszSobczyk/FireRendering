@@ -11,6 +11,7 @@ enum class Color
     Purple,
     Teal,
     Emerald,
+    DarkBrown,
     White,
     Gray,
     Black,
