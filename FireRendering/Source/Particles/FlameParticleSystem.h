@@ -18,4 +18,6 @@ private:
     std::shared_ptr<Quad> quadMesh;
     std::shared_ptr<Texture> particleTexture;
     std::shared_ptr<Texture> dissolveTexture;
+    std::shared_ptr<Texture> dissolveTexture2;
+    std::shared_ptr<Texture> dissolveTexture3;
 };

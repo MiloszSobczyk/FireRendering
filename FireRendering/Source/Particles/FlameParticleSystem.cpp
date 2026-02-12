@@ -13,9 +13,13 @@ FlameParticleSystem::FlameParticleSystem(std::size_t inMaxParticles)
     quadMesh = std::make_shared<Quad>();
     particleTexture = std::make_shared<Texture>();
     dissolveTexture = std::make_shared<Texture>();
+    dissolveTexture2 = std::make_shared<Texture>();
+    dissolveTexture3 = std::make_shared<Texture>();
 
     particleTexture->LoadFromFile("Resources/Textures/Fire01.png");
-    dissolveTexture->LoadFromFile("Resources/Textures/Voronoi01.png");
+    dissolveTexture->LoadFromFile("Resources/Textures/Noise02.png");
+    dissolveTexture2->LoadFromFile("Resources/Textures/Noise03.png");
+    dissolveTexture3->LoadFromFile("Resources/Textures/Noise04.png");
 
     for (auto& p : particles)
     {
@@ -83,11 +87,14 @@ void FlameParticleSystem::Render()
     shader->SetUniformFloat("u_dissolveStrength", 0.5f);
     shader->SetUniformFloat("u_tiling", 4.0f);
 
-    particleTexture->Bind(0);
-    shader->SetUniformInt("u_texture", 0);
+    dissolveTexture->Bind(0);
+    shader->SetUniformInt("u_dissolveTexture", 0);
 
-    dissolveTexture->Bind(1);
-    shader->SetUniformInt("u_dissolveTexture", 1);
+    dissolveTexture2->Bind(1);
+    shader->SetUniformInt("u_dissolveTexture2", 1);
+
+    dissolveTexture3->Bind(2);
+    shader->SetUniformInt("u_dissolveTexture3", 2);
 
     for (const auto& p : particles)
     {

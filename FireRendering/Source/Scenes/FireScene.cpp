@@ -3,7 +3,7 @@
 #include <chrono>
 
 FireScene::FireScene()
-	: plane(std::make_shared<Plane>()), flameParticleSystem(std::make_shared<FlameParticleSystem>(20))
+	: plane(std::make_shared<Plane>()), flameParticleSystem(std::make_shared<FlameParticleSystem>(200))
 {
 }
 
