@@ -81,10 +81,7 @@ void Window::SetupGLFWFunctions()
     GLCall(glDisable(GL_CULL_FACE));
 
     GLCall(glEnable(GL_BLEND));
-    GLCall(glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA));
+    GLCall(glBlendFunc(GL_SRC_ALPHA, GL_ONE));
 
     GLCall(glPatchParameteri(GL_PATCH_VERTICES, 4));
-
-    GLCall(glEnable(GL_DEPTH_TEST));
-    GLCall(glDepthFunc(GL_LESS));
 }

@@ -49,6 +49,15 @@ ShaderManager::ShaderManager()
 		.AddShader(ShaderType::Fragment, "billboard")
 		.Compile()
 	);
+
+	AddShader(
+		ShaderName::Fire,
+		ShaderBuilder()
+		.SetShaderDirectory("Resources/Shaders/")
+		.AddShader(ShaderType::Vertex, "billboard")
+		.AddShader(ShaderType::Fragment, "Fire/fire")
+		.Compile()
+	);
 }
 
 ShaderManager& ShaderManager::GetInstance()

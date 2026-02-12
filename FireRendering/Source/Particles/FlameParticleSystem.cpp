@@ -71,7 +71,7 @@ void FlameParticleSystem::Update(float deltaTime)
 
 void FlameParticleSystem::Render()
 {
-    auto shader = ShaderManager::GetInstance().GetShader(ShaderName::Billboard);
+    auto shader = ShaderManager::GetInstance().GetShader(ShaderName::Fire);
     shader->Bind();
 
     shader->SetUniformMat4f("u_projectionMatrix", App::GetProjectionMatrix());
@@ -98,6 +98,7 @@ void FlameParticleSystem::Render()
         model = glm::scale(model, glm::vec3(0.5f * p.life / maxLife));
 
         shader->SetUniformMat4f("u_modelMatrix", model);
+        shader->SetUniformFloat("u_life", p.life);
 
         quadMesh->Render();
     }
