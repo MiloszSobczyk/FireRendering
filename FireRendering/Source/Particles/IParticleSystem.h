@@ -16,6 +16,7 @@ public:
 
     inline std::size_t GetMaxParticles() const { return maxParticles; }
 
+    glm::vec3 startingPosition;
 protected:
     explicit IParticleSystem(std::size_t inMaxParticles);
 

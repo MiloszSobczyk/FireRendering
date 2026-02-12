@@ -66,7 +66,7 @@ void EmberParticleSystem::Update(float deltaTime)
 
     while (emitAccumulator >= 1.0f)
     {
-        Emit(glm::vec3(0.f, 2 * spawnRadius, 0.f));
+        Emit(startingPosition + glm::vec3(0.f, 2 * spawnRadius, 0.f));
         emitAccumulator -= 1.0f;
     }
 

@@ -35,6 +35,7 @@ void App::RenderUI()
 		| ImGuiWindowFlags_NoMove
 		| ImGuiWindowFlags_NoResize
 		| ImGuiWindowFlags_NoCollapse;
+	scene->RenderUI();
 }
 
 void App::HandleInput()

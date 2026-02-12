@@ -20,6 +20,11 @@ public:
 	void RenderUI() override;
 
 private:
+	bool turnOffPlane = false;
+	bool turnOffFlame = false;
+	bool turnOffSmoke = false;
+	bool turnOffEmber = false;
+
 	std::shared_ptr<Plane> plane;
 	std::shared_ptr<FlameParticleSystem> flameParticleSystem;
 	std::shared_ptr<SmokeParticleSystem> smokeParticleSystem;

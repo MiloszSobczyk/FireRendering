@@ -84,7 +84,7 @@ void FlameParticleSystem::Update(float deltaTime)
 
     while (emitAccumulator >= 1.0f)
     {
-        Emit(glm::vec3(0.0f));
+        Emit(startingPosition);
         emitAccumulator -= 1.0f;
     }
 
