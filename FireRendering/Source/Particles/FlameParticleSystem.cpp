@@ -7,6 +7,7 @@
 #include <iostream>
 #include <cstdlib>
 #include <imgui/implot_demo.cpp>
+#include <glm/gtx/quaternion.hpp>
 
 FlameParticleSystem::FlameParticleSystem(std::size_t inMaxParticles)
     : IParticleSystem(inMaxParticles)
@@ -64,7 +65,7 @@ void FlameParticleSystem::Emit(const glm::vec3& position)
 
             glm::vec3 velocity = glm::vec3(
                 (rand() % 100 - 50) / 100.0f,
-                (rand() % 100) / 40.0f,
+                (rand() % 100) / 10.0f,
                 (rand() % 100 - 50) / 100.0f
             );
             p.velocity = glm::normalize(velocity);
@@ -125,8 +126,16 @@ void FlameParticleSystem::Render()
     {
         if (p.life <= 0.0f) continue;
 
+        float rx = randf(-2.f * PI, 2.0f * PI);
+        float ry = randf(-2.f * PI, 2.0f * PI);
+        float rz = randf(-2.f * PI, 2.0f * PI);
+
+        glm::quat q = glm::quat(glm::vec3(rx, ry, rz));
+        glm::mat4 rotation = glm::toMat4(q);
+
         glm::mat4 model = glm::mat4(1.0f);
         model = glm::translate(model, p.position);
+        model = model * rotation;
         model = glm::scale(model, glm::vec3(0.5f * p.life / maxLife));
 
         shader->SetUniformMat4f("u_modelMatrix", model);
