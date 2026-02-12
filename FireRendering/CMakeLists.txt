@@ -36,12 +36,12 @@ add_executable(${PROJECT_NAME}
     "Source/Scenes/IScene.h" 
     "Source/Scenes/FireScene.cpp"
 
-    "Source/Particles/Particle.h"
-    
-    "Source/Particles/FlameParticleSystem.cpp"
-    "Source/Particles/IParticleSystem.h"
     "Source/Texture/Texture.cpp"
-     "Source/Particles/IParticleSystem.cpp")
+    
+    "Source/Particles/Particle.h"
+    "Source/Particles/IParticleSystem.cpp"
+    "Source/Particles/FlameParticleSystem.cpp"
+    "Source/Particles/SmokeParticleSystem.cpp")
 
 set_property(TARGET ${PROJECT_NAME} PROPERTY CXX_STANDARD 20)
 
