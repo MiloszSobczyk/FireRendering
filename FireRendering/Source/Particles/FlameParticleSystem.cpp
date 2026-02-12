@@ -6,6 +6,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <iostream>
 #include <cstdlib>
+#include <imgui/implot_demo.cpp>
 
 FlameParticleSystem::FlameParticleSystem(std::size_t inMaxParticles)
     : IParticleSystem(inMaxParticles)
@@ -19,12 +20,36 @@ FlameParticleSystem::FlameParticleSystem(std::size_t inMaxParticles)
     particleTexture->LoadFromFile("Resources/Textures/Fire01.png");
     dissolveTexture->LoadFromFile("Resources/Textures/Noise02.png");
     dissolveTexture2->LoadFromFile("Resources/Textures/Noise03.png");
-    dissolveTexture3->LoadFromFile("Resources/Textures/Noise04.png");
+    dissolveTexture3->LoadFromFile("Resources/Textures/Noise06.png");
 
     for (auto& p : particles)
     {
         p.life = 0.0f;
     }
+}
+
+float randf(float a, float b)
+{
+    return a + (b - a) * (rand() / float(RAND_MAX));
+}
+
+
+glm::vec3 randomInCone(float radius)
+{
+    glm::vec3 dir = glm::normalize(glm::vec3(
+        randf(-0.5f, 0.5f),
+        1.0f,
+        randf(-0.5f, 0.5f)
+    ));
+    return dir * randf(0, radius);
+}
+
+
+glm::vec3 randomInDisk(float radius)
+{
+    float angle = randf(0, 2 * PI);
+    float r = sqrt(randf(0, 1)) * radius;
+    return glm::vec3(cos(angle) * r, 0, sin(angle) * r);
 }
 
 void FlameParticleSystem::Emit(const glm::vec3& position)
@@ -35,7 +60,7 @@ void FlameParticleSystem::Emit(const glm::vec3& position)
         {
             float life = minLife + static_cast<float>(rand()) / static_cast<float>(RAND_MAX) * (maxLife - minLife);
 
-            p.position = position;
+            p.position = position + randomInCone(0.2f) + randomInDisk(0.05f);
 
             glm::vec3 velocity = glm::vec3(
                 (rand() % 100 - 50) / 100.0f,

@@ -34,7 +34,14 @@ void main()
     float r = length(uv);
 
     // shape
-    float mask = smoothstep(1.0, 0.2, r);
+    float base = length(uv);
+	float edgeNoise = texture(u_dissolveTexture3, v_UV*3.0 + u_time).r;
+
+	float mask = smoothstep(
+		1.0,
+		0.2 + edgeNoise*0.4,
+		base
+	);
 
     // second noise layer (flicker)
     float n2 = mixNoises(v_UV * 5.0 + u_time * 1.5);

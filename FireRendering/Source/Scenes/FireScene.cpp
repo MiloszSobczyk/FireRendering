@@ -4,7 +4,7 @@
 
 FireScene::FireScene()
 	: plane(std::make_shared<Plane>()), 
-    flameParticleSystem(std::make_shared<FlameParticleSystem>(20)),
+    flameParticleSystem(std::make_shared<FlameParticleSystem>(100)),
 	smokeParticleSystem(std::make_shared<SmokeParticleSystem>(20)),
     emberParticleSystem(std::make_shared<EmberParticleSystem>(20))
 {
