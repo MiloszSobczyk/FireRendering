@@ -15,6 +15,8 @@ public:
     void Render() override;
 
     bool addFlameRandomness = false;
+    float coneRadius = 0.1f;
+    float diskRadius = 0.05f;
 
 private:
     std::shared_ptr<Quad> quadMesh;

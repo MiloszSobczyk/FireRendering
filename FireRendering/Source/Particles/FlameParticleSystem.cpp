@@ -61,7 +61,7 @@ void FlameParticleSystem::Emit(const glm::vec3& position)
         {
             float life = minLife + static_cast<float>(rand()) / static_cast<float>(RAND_MAX) * (maxLife - minLife);
 
-            p.position = position + randomInCone(0.2f) + randomInDisk(0.05f);
+            p.position = position + randomInCone(coneRadius) + randomInDisk(diskRadius);
 
             glm::vec3 velocity = glm::vec3(
                 (rand() % 100 - 50) / 100.0f,
