@@ -67,6 +67,15 @@ ShaderManager::ShaderManager()
 		.AddShader(ShaderType::Fragment, "Fire/smoke")
 		.Compile()
 	);
+
+	AddShader(
+		ShaderName::Ember,
+		ShaderBuilder()
+		.SetShaderDirectory("Resources/Shaders/")
+		.AddShader(ShaderType::Vertex, "billboard")
+		.AddShader(ShaderType::Fragment, "Fire/ember")
+		.Compile()
+	);
 }
 
 ShaderManager& ShaderManager::GetInstance()

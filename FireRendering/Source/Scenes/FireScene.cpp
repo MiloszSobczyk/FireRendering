@@ -6,7 +6,7 @@ FireScene::FireScene()
 	: plane(std::make_shared<Plane>()), 
     flameParticleSystem(std::make_shared<FlameParticleSystem>(100)),
 	smokeParticleSystem(std::make_shared<SmokeParticleSystem>(100)),
-    emberParticleSystem(std::make_shared<EmberParticleSystem>(20))
+    emberParticleSystem(std::make_shared<EmberParticleSystem>(50))
 {
 }
 
@@ -27,13 +27,12 @@ void FireScene::Update()
 	emberParticleSystem->Update(deltaTime);
 }
 
-
 void FireScene::RenderOnScene()
 {
 	plane->Render();
     flameParticleSystem->Render();
     smokeParticleSystem->Render();
-	//emberParticleSystem->Render();
+	emberParticleSystem->Render();
 }
 
 void FireScene::RenderUI()

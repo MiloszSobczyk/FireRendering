@@ -14,6 +14,7 @@ enum class ShaderName
 	Billboard = 4,
 	Fire = 5,
 	Smoke = 6,
+	Ember = 7,
 };
 
 class ShaderManager

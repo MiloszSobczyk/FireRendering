@@ -11,11 +11,6 @@ EmberParticleSystem::EmberParticleSystem(std::size_t inMaxParticles)
     : IParticleSystem(inMaxParticles)
 {
     quadMesh = std::make_shared<Quad>();
-    particleTexture = std::make_shared<Texture>();
-    dissolveTexture = std::make_shared<Texture>();
-
-    particleTexture->LoadFromFile("Resources/Textures/Fire01.png");
-    dissolveTexture->LoadFromFile("Resources/Textures/Voronoi01.png");
 
     for (auto& p : particles)
     {
@@ -49,9 +44,11 @@ void EmberParticleSystem::Emit(const glm::vec3& position)
 
             glm::vec3 velocity = glm::vec3(
                 (rand() % 100 - 50) / 100.0f,
-                (rand() % 100) / 40.0f,
+                (rand() % 100) / 50.0f,
                 (rand() % 100 - 50) / 100.0f
             );
+            p.velocity = glm::normalize(velocity) * 4.0f;
+
             p.velocity = glm::normalize(velocity);
 
             p.color = glm::vec4(1.0f, 0.5f, 0.2f, 1.0f);
@@ -69,7 +66,7 @@ void EmberParticleSystem::Update(float deltaTime)
 
     while (emitAccumulator >= 1.0f)
     {
-        Emit(glm::vec3(0.f, spawnRadius, 0.f));
+        Emit(glm::vec3(0.f, 2 * spawnRadius, 0.f));
         emitAccumulator -= 1.0f;
     }
 
@@ -79,15 +76,15 @@ void EmberParticleSystem::Update(float deltaTime)
         {
             p.life -= deltaTime;
 
-            glm::vec3 upwardForce = glm::vec3(0.0f, 1.5f, 0.0f);
-            glm::vec3 wind = glm::vec3(0.8f, 0.0f, 0.3f);
+            glm::vec3 upwardForce = glm::vec3(0.0f, 2.5f, 0.0f);
+            glm::vec3 wind = glm::vec3(0.0f, 0.0f, 0.0f);
             glm::vec3 turbulence = glm::vec3(
                 (rand() % 100 - 50) / 500.0f,
-                (rand() % 100 - 50) / 500.0f,
+                (rand() % 100 - 50) / 100.0f,
                 (rand() % 100 - 50) / 500.0f
             );
             p.velocity += (upwardForce + wind + turbulence) * deltaTime;
-            p.velocity *= 0.98f;
+            p.velocity *= 0.99f;
 
             p.position += p.velocity * deltaTime;
 
@@ -98,37 +95,44 @@ void EmberParticleSystem::Update(float deltaTime)
 
 void EmberParticleSystem::Render()
 {
-    auto shader = ShaderManager::GetInstance().GetShader(ShaderName::Fire);
+    auto shader = ShaderManager::GetInstance().GetShader(ShaderName::Ember);
     shader->Bind();
 
     shader->SetUniformMat4f("u_projectionMatrix", App::GetProjectionMatrix());
     shader->SetUniformMat4f("u_viewMatrix", App::GetViewMatrix());
     shader->SetUniformVec3f("u_cameraWorldPos", App::GetCameraWorldPosition());
-    shader->SetUniformFloat("u_time", App::GetTime());
-
-    shader->SetUniformVec4f("u_color", glm::vec4(1.f, 0.5f, 0.2f, 1.f));
-    shader->SetUniformFloat("u_dissolveStrength", 0.5f);
-    shader->SetUniformFloat("u_tiling", 4.0f);
-
-    particleTexture->Bind(0);
-    shader->SetUniformInt("u_texture", 0);
-
-    dissolveTexture->Bind(1);
-    shader->SetUniformInt("u_dissolveTexture", 1);
 
     for (const auto& p : particles)
     {
-        if (p.life <= 0.0f) continue;
+        if (p.life <= 0.0f)
+            continue;
 
-        glm::mat4 model = glm::mat4(1.0f);
+        float normalizedLife = p.life / maxLife;
+        float baseSize = 0.05f;
+        float speed = glm::length(p.velocity);
+        float stretch = glm::clamp(speed * 0.05f, 0.0f, 0.1f);
+
+        glm::vec3 scaleVec(baseSize, baseSize + stretch, 1.0f);
+
+        glm::mat4 model(1.0f);
         model = glm::translate(model, p.position);
-        model = glm::scale(model, glm::vec3(0.5f * p.life / maxLife));
+        model = glm::scale(model, scaleVec);
 
         shader->SetUniformMat4f("u_modelMatrix", model);
-        shader->SetUniformFloat("u_life", p.life);
+
+        glm::vec3 velDir;
+        if (glm::length(p.velocity) < 0.001f)
+            velDir = glm::vec3(0.0f, 1.0f, 0.0f);
+        else
+            velDir = glm::normalize(p.velocity);
+
+        shader->SetUniformVec3f("u_velocityDir", velDir);
+
+        shader->SetUniformFloat("u_life", normalizedLife);
 
         quadMesh->Render();
     }
 
     shader->Unbind();
 }
+
