@@ -32,8 +32,8 @@ void FireScene::RenderOnScene()
 {
 	plane->Render();
     //flameParticleSystem->Render();
-    //smokeParticleSystem->Render();
-	emberParticleSystem->Render();
+    smokeParticleSystem->Render();
+	//emberParticleSystem->Render();
 }
 
 void FireScene::RenderUI()
